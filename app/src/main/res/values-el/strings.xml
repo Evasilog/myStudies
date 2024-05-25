@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">myStudies</string>
+    <string name="nav_menu_home">Αρχική</string>
+    <string name="nav_menu_tasks">Εργασίες</string>
+    <string name="nav_menu_instructors">Διδάσκοντες</string>
+    <string name="nav_menu_notes">Σημειώσεις</string>
+    <string name="new_course">Νέο Μάθημα</string>
+    <string name="new_task">Νέα Εργασία</string>
+    <string name="new_instructor">Νέος Διδάσκων</string>
+    <string name="new_note">Νέα Σημείωση</string>
+    <string name="go_back">Πήγαινε πίσω</string>
+    <string name="title">Τίτλος</string>
+    <string name="semester">Εξάμηνο</string>
+    <string name="ects">ECTS</string>
+    <string name="instructor">Διδάσκων</string>
+    <string name="type">Τύπος</string>
+    <string name="hours">Ώρες</string>
+    <string name="grade">Βαθμός</string>
+    <string name="has_grade">Έχει βαθμό</string>
+    <string name="details">Λεπτομέρειες</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="progress_value">30/60</string>
+    <string name="weighted_grade_average">Weighted Grade Average</string>
+    <string name="weighted_grade_average_value">8.06</string>
+    <string name="grade_average">Grade Average</string>
+    <string name="grade_average_value">8.06</string>
+    <string name="passed_courses">Passed courses</string>
+    <string name="passed_courses_value">99/99</string>
+    <string name="passed_ects">Passed ECTS</string>
+    <string name="passed_ects_value">240</string>
+    <string name="decoration_icon">Διακοσμιτικό εικονίδιο</string>
+    <string name="edit">Τροποποίηση</string>
+    <string name="delete">Διαγραφή</string>
+    <string name="first_name">Όνομα</string>
+    <string name="last_name">Επώνυμο</string>
+    <string name="email">Email</string>
+    <string name="phone">Τηλέφωνο</string>
+    <string name="number_st">ο</string>
+    <string name="number_nd">ο</string>
+    <string name="number_rd">ο</string>
+    <string name="number_th">ο</string>
+    <string name="display_settings">Ρυθμίσεις εμφάνισης</string>
+    <string name="select_theme">Επιλογή Θέματος</string>
+    <string name="info">Πληροφορίες</string>
+    <string name="learn_about_us">Learn about us</string>
+    <string name="contact">Contact</string>
+    <string name="sent_as_your_comments">Sent as your comments</string>
+    <string name="our_social_media">Our Social Media</string>
+    <string name="instagram">Instagram</string>
+    <string name="follow_us">Follow us</string>
+    <string name="settings">Ρυθμίσεις</string>
+    <string name="select_language">Γλώσσα</string>
+    <string name="completed_tasks">4/6 ολοκληρωμένες εργασίες</string>
+    <string name="deadline">Διορία</string>
+    <string name="reminder">Υπενθύμιση</string>
+    <string name="task">Εργασία</string>
+    <string name="select_date">Επέλεξε ημερομηνία</string>
+    <string name="select_time">Επέλεξε ώρα</string>
+    <string name="completed">Ολοκληρώθηκε</string>
+    <string name="note">Note</string>
+
+    <string-array name="course_types_labels">
+        <item>Υποχρεωτικό</item>
+        <item>Επιλογής</item>
+    </string-array>
+
+    <string-array name="theme_entries">
+        <item>Same as system</item>
+        <item>Light</item>
+        <item>Dark</item>
+    </string-array>
+
+    <string-array name="theme_values">
+        <item>default</item>
+        <item>light</item>
+        <item>dark</item>
+    </string-array>
+
+    <string-array name="language_entries">
+        <item>Γλώσσα συστήματος</item>
+        <item>Αγγλικά</item>
+        <item>Ελληνικά</item>
+    </string-array>
+
+    <string-array name="language_values">
+        <item>default</item>
+        <item>en</item>
+        <item>el</item>
+    </string-array>
+</resources>

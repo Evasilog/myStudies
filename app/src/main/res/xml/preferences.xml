@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="@string/display_settings">
+        <ListPreference
+            android:key="preference_theme"
+            android:title="@string/select_theme"
+            android:defaultValue="default"
+            android:entries="@array/theme_entries"
+            android:entryValues="@array/theme_values" />
+        <ListPreference
+            android:key="preference_language"
+            android:title="@string/select_language"
+            android:defaultValue="default"
+            android:entries="@array/language_entries"
+            android:entryValues="@array/language_values" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/display_settings">
+        <EditTextPreference
+            android:defaultValue="240"
+            android:key="preference_ects"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Total ECTS" />
+
+        <EditTextPreference
+            android:defaultValue="5"
+            android:key="preference_passing_grade"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Passing Grade" />
+
+        <EditTextPreference
+            android:defaultValue="8"
+            android:key="preference_semesters"
+            android:selectAllOnFocus="true"
+            android:singleLine="true"
+            android:title="Total Semesters" />
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="Preference category">
+        <Preference android:key="dialog_pref"
+            android:title="@string/info"
+            android:summary="@string/learn_about_us"/>
+        <Preference android:key="mail_pref"
+            android:title="@string/contact"
+            android:summary="@string/sent_as_your_comments"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="@string/our_social_media">
+        <Preference android:key="social_pref"
+            android:title="@string/instagram"
+            android:summary="@string/follow_us"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

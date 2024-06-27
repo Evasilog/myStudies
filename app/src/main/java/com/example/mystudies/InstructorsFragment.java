@@ -1,6 +1,7 @@
 package com.example.mystudies;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class InstructorsFragment extends Fragment {
+public class InstructorsFragment extends Fragment implements InstructorsRecyclerAdapter.OnInstructorClickListener {
 
     FloatingActionButton addInstructorBtn;
     RecyclerView recyclerView;
@@ -49,7 +50,7 @@ public class InstructorsFragment extends Fragment {
 
         addInstructorBtn = view.findViewById(R.id.add_instructor);
         addInstructorBtn.setAlpha(0.75f);
-        addInstructorBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), InstructorFormActivity.class)));
+        addInstructorBtn.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), InstructorFormActivity.class), 1));
 
         totalInstructors = view.findViewById(R.id.total_instructors);
 
@@ -65,7 +66,7 @@ public class InstructorsFragment extends Fragment {
         List<Instructor> instructors = dbHandler.getInstructors();
 
         //Set my Adapter for the RecyclerView
-        adapter = new InstructorsRecyclerAdapter(instructors);
+        adapter = new InstructorsRecyclerAdapter(instructors, this);
         recyclerView.setAdapter(adapter);
 
         totalInstructors.setText(adapter.getItemCount() == 1 ? adapter.getItemCount() + " " + getResources().getString(R.string.instructor).toLowerCase() : adapter.getItemCount() + " " + getResources().getString(R.string.nav_menu_instructors).toLowerCase());
@@ -73,5 +74,29 @@ public class InstructorsFragment extends Fragment {
         dbHandler.close();
 
         return view;
+    }
+
+    @Override
+    public void onInstructorClick(int position, List<Instructor> instructors) {
+        Intent intent = new Intent(getContext(), InstructorFormActivity.class);
+        intent.putExtra("instructor_id", instructors.get(position).getID());
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            FragmentActivity context = requireActivity();
+            MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
+            List<Instructor> instructors = dbHandler.getInstructors();
+
+            //Set my Adapter for the RecyclerView
+            adapter = new InstructorsRecyclerAdapter(instructors, this);
+            recyclerView.setAdapter(adapter);
+            totalInstructors.setText(adapter.getItemCount() == 1 ? adapter.getItemCount() + " " + getResources().getString(R.string.instructor).toLowerCase() : adapter.getItemCount() + " " + getResources().getString(R.string.nav_menu_instructors).toLowerCase());
+
+            dbHandler.close();
+        }
     }
 }

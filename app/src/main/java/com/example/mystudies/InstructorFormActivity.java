@@ -50,14 +50,13 @@ public class InstructorFormActivity extends AppCompatActivity {
         deleteIcon.setOnClickListener(v -> {
             if (is_edit) {
                 boolean result = dbHandler.deleteInstructor(id);
-                if (result) {
-                    finish();
-                    Intent intent1 = new Intent(v.getContext(), MainActivity.class);
-                    intent1.putExtra("fragment","instructors");
-                    intent1.putExtra("snackBar","Instructor \"" + instructor.getLastName() + "\" deleted");
-                    v.getContext().startActivity(intent1);
-                }
                 dbHandler.close();
+                if (result) {
+                    Intent intent1 = new Intent();
+                    intent1.putExtra("fragment","instructors");
+                    setResult(RESULT_OK, intent1);
+                    finish();
+                }
             }
         });
 
@@ -99,9 +98,10 @@ public class InstructorFormActivity extends AppCompatActivity {
             }
             dbHandler.close();
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("fragment","instructors");
-            startActivity(intent);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 

@@ -22,6 +22,10 @@
         <item name="cardBackgroundColor">@color/light</item>
     </style>
 
+    <style name="headerFrame">
+        <item name="android:background">@color/light</item>
+    </style>
+
     <style name="progressBarGreen" parent="@style/Theme.AppCompat">
         <item name="colorAccent">@color/success</item>
     </style>

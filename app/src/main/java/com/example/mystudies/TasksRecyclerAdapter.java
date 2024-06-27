@@ -1,7 +1,6 @@
 package com.example.mystudies;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,17 @@ import java.util.List;
 public class TasksRecyclerAdapter extends RecyclerView.Adapter<TasksRecyclerAdapter.ViewHolder> {
 
     private static List<Task> tasksList;
+    private static OnTaskClickListener onTaskClickListener;
 
-    public TasksRecyclerAdapter(List<Task> tasksList){
-        TasksRecyclerAdapter.tasksList = new ArrayList<>(tasksList);
+    public interface OnTaskClickListener {
+        void onTaskClick(int position, List<Task> list);
     }
+
+    public TasksRecyclerAdapter(List<Task> tasksList, OnTaskClickListener onTaskClickListener){
+        TasksRecyclerAdapter.tasksList = new ArrayList<>(tasksList);
+        TasksRecyclerAdapter.onTaskClickListener = onTaskClickListener;
+    }
+
 
     //Class that holds the items to be displayed (Views in card_layout)
     static class ViewHolder extends RecyclerView.ViewHolder {
@@ -36,10 +42,7 @@ public class TasksRecyclerAdapter extends RecyclerView.Adapter<TasksRecyclerAdap
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-
-                Intent intent = new Intent(v.getContext(), TaskFormActivity.class);
-                intent.putExtra("task_id",tasksList.get(position).getID());
-                v.getContext().startActivity(intent);
+                onTaskClickListener.onTaskClick(position, tasksList);
             });
         }
     }
@@ -56,7 +59,9 @@ public class TasksRecyclerAdapter extends RecyclerView.Adapter<TasksRecyclerAdap
     @Override
     public void onBindViewHolder(TasksRecyclerAdapter.ViewHolder holder, int position) {
         holder.itemTaskTitle.setText(tasksList.get(position).getTitle());
-        holder.itemTaskDeadline.setText(tasksList.get(position).getUpdatedAt());
+
+        String deadline = tasksList.get(position).getDeadline();
+        holder.itemTaskDeadline.setText(deadline.substring(0, deadline.length() - 3));
         if (tasksList.get(position).getCompleted() == 1) {
             holder.itemCard.setAlpha(0.4f);
         }

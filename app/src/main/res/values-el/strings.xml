@@ -21,13 +21,13 @@
     <string name="details">Λεπτομέρειες</string>
     <string name="save">Αποθήκευση</string>
     <string name="progress_value">30/60</string>
-    <string name="weighted_grade_average">Weighted Grade Average</string>
+    <string name="weighted_grade_average">Μέσος όρος με συντελεστές</string>
     <string name="weighted_grade_average_value">8.06</string>
-    <string name="grade_average">Grade Average</string>
+    <string name="grade_average">Μέσος όρος</string>
     <string name="grade_average_value">8.06</string>
-    <string name="passed_courses">Passed courses</string>
+    <string name="passed_courses">Περασμένα μαθήματα</string>
     <string name="passed_courses_value">99/99</string>
-    <string name="passed_ects">Passed ECTS</string>
+    <string name="passed_ects">Περασμένα ECTS</string>
     <string name="passed_ects_value">240</string>
     <string name="decoration_icon">Διακοσμιτικό εικονίδιο</string>
     <string name="edit">Τροποποίηση</string>
@@ -43,15 +43,12 @@
     <string name="display_settings">Ρυθμίσεις εμφάνισης</string>
     <string name="select_theme">Επιλογή Θέματος</string>
     <string name="info">Πληροφορίες</string>
-    <string name="learn_about_us">Learn about us</string>
-    <string name="contact">Contact</string>
-    <string name="sent_as_your_comments">Sent as your comments</string>
-    <string name="our_social_media">Our Social Media</string>
-    <string name="instagram">Instagram</string>
-    <string name="follow_us">Follow us</string>
+    <string name="learn_about_app">Μάθε για το app</string>
+    <string name="contact">Επικοινωνία</string>
+    <string name="sent_as_your_comments">Στείλε μας τα σχόλια σου</string>
     <string name="settings">Ρυθμίσεις</string>
     <string name="select_language">Γλώσσα</string>
-    <string name="completed_tasks">4/6 ολοκληρωμένες εργασίες</string>
+    <string name="completed_tasks">ολοκληρωμένες εργασίες</string>
     <string name="deadline">Διορία</string>
     <string name="reminder">Υπενθύμιση</string>
     <string name="task">Εργασία</string>
@@ -59,6 +56,11 @@
     <string name="select_time">Επέλεξε ώρα</string>
     <string name="completed">Ολοκληρώθηκε</string>
     <string name="note">Note</string>
+    <string name="total_ects">Συνολικά ECTS</string>
+    <string name="passing_grade">Προβιβάσιμος βαθμός</string>
+    <string name="total_semesters">Πλήθος Εξαμήνων</string>
+    <string name="info_title">Πληροφορίες</string>
+    <string name="info_message">Αυτή η εφαρμογή αναπτύχθηκε από τον Βασιλόγαμβρο Ευάγγελο, μεταπτυχιακό φοιτητή του τμήματος πληροφορικής του Αριστοτελείου Πανεπιστημίου Θεσσαλονίκης.</string>
 
     <string-array name="course_types_labels">
         <item>Υποχρεωτικό</item>
@@ -66,9 +68,9 @@
     </string-array>
 
     <string-array name="theme_entries">
-        <item>Same as system</item>
-        <item>Light</item>
-        <item>Dark</item>
+        <item>Θέμα συστήματος</item>
+        <item>Ανοιχτό</item>
+        <item>Σκούρο</item>
     </string-array>
 
     <string-array name="theme_values">

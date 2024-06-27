@@ -73,78 +73,55 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TableLayout
-                android:id="@+id/note_tableLayout"
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/note_title"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:autofillHints="@string/title"
+                android:hint="@string/title"
+                android:inputType="text"
+                android:minHeight="48dp"
+                android:text=""
+                android:textSize="18sp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/title"
-                        android:textSize="18sp"
-                        android:labelFor="@+id/note_title"/>
-
-                    <EditText
-                        android:id="@+id/note_title"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:minHeight="48dp"
-                        android:ems="10"
-                        android:layout_marginStart="8dp"
-                        android:inputType="text"
-                        android:text=""
-                        android:textSize="18sp"
-                        android:autofillHints="@string/title" />
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_margin="10dp">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/details"
-                        android:textSize="18sp"
-                        android:labelFor="@+id/note_details"/>
-
-                    <EditText
-                        android:id="@+id/note_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:ems="10"
-                        android:layout_marginStart="8dp"
-                        android:minLines="12"
-                        android:gravity="start|top"
-                        android:inputType="textMultiLine"
-                        android:autofillHints="@string/details" />
-                </TableRow>
-            </TableLayout>
+            <EditText
+                android:id="@+id/note_details"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="24dp"
+                android:autofillHints="@string/details"
+                android:hint="@string/details"
+                android:ems="10"
+                android:gravity="start|top"
+                android:inputType="textMultiLine"
+                android:minLines="16"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/note_title" />
 
             <Button
+                android:id="@+id/button2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="24dp"
+                android:backgroundTint="@color/warning"
+                android:textColor="@color/white"
                 android:onClick="saveNote"
                 android:text="@string/save"
-                android:backgroundTint="@color/warning"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/note_tableLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/note_details" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>

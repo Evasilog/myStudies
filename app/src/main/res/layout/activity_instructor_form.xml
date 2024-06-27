@@ -212,6 +212,7 @@
                 android:onClick="saveInstructor"
                 android:text="@string/save"
                 android:backgroundTint="@color/tertiary"
+                android:textColor="@color/white"
                 android:textSize="16sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

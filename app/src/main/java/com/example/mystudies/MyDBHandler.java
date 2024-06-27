@@ -383,7 +383,7 @@ public class MyDBHandler extends SQLiteOpenHelper {
 
         Cursor cursor;
 
-        cursor = db.rawQuery("SELECT *" + " FROM " + TABLE_TASKS + " ORDER BY " + TASKS_COLUMN_CREATED_AT + " ASC", null);
+        cursor = db.rawQuery("SELECT *" + " FROM " + TABLE_TASKS + " ORDER BY " + TASKS_COLUMN_DEADLINE + " DESC", null);
 
         List<Task> tasksList = new ArrayList<>();
 

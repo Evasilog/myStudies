@@ -16,9 +16,15 @@ import java.util.List;
 public class InstructorsRecyclerAdapter extends RecyclerView.Adapter<InstructorsRecyclerAdapter.ViewHolder> {
 
     private static List<Instructor> instructorsList;
+    private static OnInstructorClickListener onInstructorClickListener;
 
-    public InstructorsRecyclerAdapter(List<Instructor> instructorsList){
+    public interface OnInstructorClickListener {
+        void onInstructorClick(int position, List<Instructor> list);
+    }
+
+    public InstructorsRecyclerAdapter(List<Instructor> instructorsList, OnInstructorClickListener onInstructorClickListener){
         InstructorsRecyclerAdapter.instructorsList = new ArrayList<>(instructorsList);
+        InstructorsRecyclerAdapter.onInstructorClickListener = onInstructorClickListener;
     }
 
     //Class that holds the items to be displayed (Views in card_layout)
@@ -32,9 +38,7 @@ public class InstructorsRecyclerAdapter extends RecyclerView.Adapter<Instructors
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
 
-                Intent intent = new Intent(v.getContext(), InstructorFormActivity.class);
-                intent.putExtra("instructor_id",instructorsList.get(position).getID());
-                v.getContext().startActivity(intent);
+                onInstructorClickListener.onInstructorClick(position, instructorsList);
             });
         }
     }

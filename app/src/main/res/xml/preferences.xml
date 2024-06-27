@@ -22,36 +22,30 @@
             android:key="preference_ects"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="Total ECTS" />
+            android:title="@string/total_ects" />
 
         <EditTextPreference
             android:defaultValue="5"
             android:key="preference_passing_grade"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="Passing Grade" />
+            android:title="@string/passing_grade" />
 
         <EditTextPreference
             android:defaultValue="8"
             android:key="preference_semesters"
             android:selectAllOnFocus="true"
             android:singleLine="true"
-            android:title="Total Semesters" />
+            android:title="@string/total_semesters" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="Preference category">
-        <Preference android:key="dialog_pref"
+    <PreferenceCategory android:title="@string/info">
+        <Preference android:key="preference_info"
             android:title="@string/info"
-            android:summary="@string/learn_about_us"/>
-        <Preference android:key="mail_pref"
+            android:summary="@string/learn_about_app"/>
+        <Preference android:key="preference_contact"
             android:title="@string/contact"
             android:summary="@string/sent_as_your_comments"/>
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/our_social_media">
-        <Preference android:key="social_pref"
-            android:title="@string/instagram"
-            android:summary="@string/follow_us"/>
     </PreferenceCategory>
 
 </PreferenceScreen>

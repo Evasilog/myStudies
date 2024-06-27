@@ -72,13 +72,13 @@ public class CourseFormActivity extends AppCompatActivity {
                 MyDBHandler dbHandler = new MyDBHandler(v.getContext(), null, null, 1);
 
                 boolean result = dbHandler.deleteCourse(id);
-                if (result) {
-                    finish();
-                    Intent intent1 = new Intent(v.getContext(), MainActivity.class);
-                    intent1.putExtra("snackBar","Course \"" + course.getTitle() + "\" deleted");
-                    v.getContext().startActivity(intent1);
-                }
                 dbHandler.close();
+                if (result) {
+                    Intent intent1 = new Intent();
+                    intent1.putExtra("fragment","courses");
+                    setResult(RESULT_OK, intent1);
+                    finish();
+                }
             }
         });
 
@@ -175,7 +175,10 @@ public class CourseFormActivity extends AppCompatActivity {
             }
             dbHandler.close();
 
-            startActivity(new Intent(this, MainActivity.class));
+            Intent intent = new Intent();
+            intent.putExtra("fragment","courses");
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 

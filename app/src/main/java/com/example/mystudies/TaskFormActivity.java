@@ -84,14 +84,13 @@ public class TaskFormActivity extends AppCompatActivity {
         deleteIcon.setOnClickListener(v -> {
             if (is_edit) {
                 boolean result = dbHandler.deleteTask(id);
-                if (result) {
-                    finish();
-                    Intent intent1 = new Intent(v.getContext(), MainActivity.class);
-                    intent1.putExtra("fragment","tasks");
-                    intent1.putExtra("snackBar","Task \"" + task.getTitle() + "\" deleted");
-                    v.getContext().startActivity(intent1);
-                }
                 dbHandler.close();
+                if (result) {
+                    Intent intent1 = new Intent();
+                    intent1.putExtra("fragment","tasks");
+                    setResult(RESULT_OK, intent1);
+                    finish();
+                }
             }
         });
 
@@ -119,7 +118,7 @@ public class TaskFormActivity extends AppCompatActivity {
             int current_minute = now.get(Calendar.MINUTE);
 
             String timeString = (String) deadlineTimeInput.getText();
-            if (!timeString.equals(getResources().getString(R.string.select_date))) {
+            if (!timeString.equals(getResources().getString(R.string.select_time))) {
                 String[] timeParts = timeString.split(":");
                 current_hourOfDay = Integer.parseInt(timeParts[0]);
                 current_minute = Integer.parseInt(timeParts[1]);
@@ -155,7 +154,7 @@ public class TaskFormActivity extends AppCompatActivity {
             int current_minute = now.get(Calendar.MINUTE);
 
             String timeString = (String) reminderTimeInput.getText();
-            if (!timeString.equals(getResources().getString(R.string.select_date))) {
+            if (!timeString.equals(getResources().getString(R.string.select_time))) {
                 String[] timeParts = timeString.split(":");
                 current_hourOfDay = Integer.parseInt(timeParts[0]);
                 current_minute = Integer.parseInt(timeParts[1]);
@@ -226,6 +225,17 @@ public class TaskFormActivity extends AppCompatActivity {
             deleteIcon.setVisibility(View.GONE);
         }
         dbHandler.close();
+
+        if (savedInstanceState != null){
+            CharSequence deadlineDateText = savedInstanceState.getCharSequence("savedDeadlineDateText");
+            deadlineDateInput.setText(deadlineDateText);
+            CharSequence deadlineTimeText = savedInstanceState.getCharSequence("savedDeadlineTimeText");
+            deadlineTimeInput.setText(deadlineTimeText);
+            CharSequence reminderDateText = savedInstanceState.getCharSequence("savedReminderDateText");
+            reminderDateInput.setText(reminderDateText);
+            CharSequence reminderTimeText = savedInstanceState.getCharSequence("savedReminderTimeText");
+            reminderTimeInput.setText(reminderTimeText);
+        }
     }
 
     // OnClick method for "Save" button
@@ -238,12 +248,12 @@ public class TaskFormActivity extends AppCompatActivity {
 
             String deadlineDate = deadlineDateInput.getText().toString();
             String deadlineTime = deadlineTimeInput.getText().toString();
-            deadlineTime = deadlineTime.equals(getResources().getString(R.string.select_date)) ? "12:00" : deadlineTime;
+            deadlineTime = deadlineTime.equals(getResources().getString(R.string.select_time)) ? "12:00" : deadlineTime;
             String deadline = deadlineDate.equals(getResources().getString(R.string.select_date)) ? "" : getFormattedDateTimeDB(deadlineDate, deadlineTime);
 
             String reminderDate = reminderDateInput.getText().toString();
             String reminderTime = reminderTimeInput.getText().toString();
-            reminderTime = reminderTime.equals(getResources().getString(R.string.select_date)) ? "12:00" : reminderTime;
+            reminderTime = reminderTime.equals(getResources().getString(R.string.select_time)) ? "12:00" : reminderTime;
             String reminder = reminderDate.equals(getResources().getString(R.string.select_date)) ? "" : getFormattedDateTimeDB(reminderDate, reminderTime);
 
             String details = detailsInput.getText().toString();
@@ -259,9 +269,10 @@ public class TaskFormActivity extends AppCompatActivity {
             }
             dbHandler.close();
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("fragment","tasks");
-            startActivity(intent);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 
@@ -285,5 +296,19 @@ public class TaskFormActivity extends AppCompatActivity {
     private String getFormattedDateTimeDB(String date, String time) {
         String[] dateParts = date.split("/");
         return dateParts[2] + "-" + dateParts[1] + "-" + dateParts[0] + " " + time + ":00" ;
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        CharSequence deadlineDateText = deadlineDateInput.getText();
+        outState.putCharSequence("savedDeadlineDateText", deadlineDateText);
+        CharSequence deadlineTimeText = deadlineTimeInput.getText();
+        outState.putCharSequence("savedDeadlineTimeText", deadlineTimeText);
+        CharSequence reminderDateText = reminderDateInput.getText();
+        outState.putCharSequence("savedReminderDateText", reminderDateText);
+        CharSequence reminderTimeText = reminderTimeInput.getText();
+        outState.putCharSequence("savedReminderTimeText", reminderTimeText);
     }
 }

@@ -7,12 +7,13 @@
     <color name="tertiary">#23A5C2</color>
     <color name="quaternary">#EA8372</color>
     <color name="success">#14A85D</color>
-    <color name="warning">#FFB700</color>
+    <color name="warning">#FF9800</color>
     <color name="danger">#FF4444</color>
     <color name="medium">#92949c</color>
+    <color name="medium_shade">#353539</color>
     <color name="light">#F3EDF7</color>
-
 
     <color name="success_tint">#72cb9e</color>
     <color name="success_shade">#0c6538</color>
+    <color name="danger_shade">#BA2C36</color>
 </resources>

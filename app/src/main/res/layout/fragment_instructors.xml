@@ -22,7 +22,7 @@
 
             <FrameLayout
                 android:id="@+id/statsStatsFrame"
-                android:background="@color/light"
+                style="@style/headerFrame"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

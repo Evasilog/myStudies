@@ -1,6 +1,7 @@
 package com.example.mystudies;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -18,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
-public class NotesFragment extends Fragment {
+public class NotesFragment extends Fragment implements NotesRecyclerAdapter.OnNoteClickListener {
 
     FloatingActionButton addNoteBtn;
     RecyclerView recyclerView;
@@ -37,7 +38,6 @@ public class NotesFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
     }
 
     @SuppressLint("MissingInflatedId")
@@ -49,7 +49,7 @@ public class NotesFragment extends Fragment {
 
         addNoteBtn = view.findViewById(R.id.add_note);
         addNoteBtn.setAlpha(0.75f);
-        addNoteBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), NoteFormActivity.class)));
+        addNoteBtn.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), NoteFormActivity.class), 1));
 
         totalNotes = view.findViewById(R.id.total_notes);
 
@@ -65,7 +65,7 @@ public class NotesFragment extends Fragment {
         List<Note> notes = dbHandler.getNotes();
 
         //Set my Adapter for the RecyclerView
-        adapter = new NotesRecyclerAdapter(notes);
+        adapter = new NotesRecyclerAdapter(notes, this);
         recyclerView.setAdapter(adapter);
 
         totalNotes.setText(adapter.getItemCount() == 1 ? adapter.getItemCount() + " " + getResources().getString(R.string.note).toLowerCase() : adapter.getItemCount() + " " + getResources().getString(R.string.nav_menu_notes).toLowerCase());
@@ -73,5 +73,29 @@ public class NotesFragment extends Fragment {
         dbHandler.close();
 
         return view;
+    }
+
+    @Override
+    public void onNoteClick(int position, List<Note> notes) {
+        Intent intent = new Intent(getContext(), NoteFormActivity.class);
+        intent.putExtra("note_id", notes.get(position).getID());
+        startActivityForResult(intent, 1);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            FragmentActivity context = requireActivity();
+            MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
+            List<Note> notes = dbHandler.getNotes();
+
+            //Set my Adapter for the RecyclerView
+            adapter = new NotesRecyclerAdapter(notes, this);
+            recyclerView.setAdapter(adapter);
+            totalNotes.setText(adapter.getItemCount() == 1 ? adapter.getItemCount() + " " + getResources().getString(R.string.note).toLowerCase() : adapter.getItemCount() + " " + getResources().getString(R.string.nav_menu_notes).toLowerCase());
+
+            dbHandler.close();
+        }
     }
 }

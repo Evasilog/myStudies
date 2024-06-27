@@ -55,15 +55,14 @@ public class NoteFormActivity extends AppCompatActivity {
 
         deleteIcon.setOnClickListener(v -> {
             if (is_edit) {
-                boolean result = dbHandler.deleteTask(id);
-                if (result) {
-                    finish();
-                    Intent intent1 = new Intent(v.getContext(), MainActivity.class);
-                    intent1.putExtra("fragment","notes");
-                    intent1.putExtra("snackBar","Note \"" + note.getTitle() + "\" deleted");
-                    v.getContext().startActivity(intent1);
-                }
+                boolean result = dbHandler.deleteNote(id);
                 dbHandler.close();
+                if (result) {
+                    Intent intent1 = new Intent();
+                    intent1.putExtra("fragment","notes");
+                    setResult(RESULT_OK, intent1);
+                    finish();
+                }
             }
         });
 
@@ -100,9 +99,10 @@ public class NoteFormActivity extends AppCompatActivity {
             }
             dbHandler.close();
 
-            Intent intent = new Intent(this, MainActivity.class);
+            Intent intent = new Intent();
             intent.putExtra("fragment","notes");
-            startActivity(intent);
+            setResult(RESULT_OK, intent);
+            finish();
         }
     }
 

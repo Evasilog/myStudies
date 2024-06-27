@@ -1,6 +1,7 @@
 package com.example.mystudies;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.DecimalFormat;
 import java.util.List;
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements CoursesRecyclerAdapter.OnCourseClickListener {
 
     FloatingActionButton addCourseBtn;
     TextView progressValue, weightedGradeAverageValue, gradeAverageValue, passedCoursesValue, passedEctsValue;
@@ -54,7 +55,7 @@ public class HomeFragment extends Fragment {
 
         addCourseBtn = view.findViewById(R.id.add_course);
         addCourseBtn.setAlpha(0.75f);
-        addCourseBtn.setOnClickListener(v -> startActivity(new Intent(getActivity(), CourseFormActivity.class)));
+        addCourseBtn.setOnClickListener(v -> startActivityForResult(new Intent(getActivity(), CourseFormActivity.class), 1));
 
         FragmentActivity context = requireActivity();
 
@@ -125,9 +126,81 @@ public class HomeFragment extends Fragment {
 
 
         //Set my Adapter for the RecyclerView
-        adapter = new CoursesRecyclerAdapter(courses);
+        adapter = new CoursesRecyclerAdapter(courses, this);
         recyclerView.setAdapter(adapter);
 
         return view;
+    }
+
+    @Override
+    public void onCourseClick(int position, List<Course> courses) {
+        Intent intent = new Intent(getContext(), CourseFormActivity.class);
+        intent.putExtra("course_id", courses.get(position).getID());
+        startActivityForResult(intent, 1);
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            FragmentActivity context = requireActivity();
+            MyDBHandler dbHandler = new MyDBHandler(context, null, null, 1);
+            List<Course> courses = dbHandler.getCourses();
+
+            int total_courses = courses.size();
+
+            int passed_courses = 0;
+
+            float passed_ects = 0;
+
+            float sum_passed_ects_x_grades = 0;
+
+            float sum_passed_grades = 0;
+
+            SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(requireContext());
+            float total_ects = Float.parseFloat(sharedPreferences.getString("preference_ects", "240"));
+            float passing_grade = Float.parseFloat(sharedPreferences.getString("preference_passing_grade", "5"));
+
+            for (Course course: courses) {
+                if (course.getGrade() >= passing_grade || course.getHasGrade() == 0) {
+                    passed_courses++;
+                    passed_ects += course.getEcts();
+                    if (course.getHasGrade() == 1) {
+                        sum_passed_ects_x_grades += course.getEcts() * course.getGrade();
+                        sum_passed_grades += course.getGrade();
+                    }
+                }
+            }
+
+            float weighted_grade_average = passed_ects > 0 ? sum_passed_ects_x_grades/passed_ects : 0;
+            float grade_average = passed_courses > 0 ? sum_passed_grades/passed_courses : 0;
+            float progress = passed_ects/total_ects * 100;
+
+            progressBar.setProgress(Math.round(progress));
+
+            DecimalFormat df = new DecimalFormat("#.##");
+            df.setDecimalSeparatorAlwaysShown(false);
+
+            String progress_value = df.format(passed_ects)+"/"+df.format(total_ects);
+            progressValue.setText(progress_value);
+            if(progress_value.length() > 5 && progress_value.length() <= 7) {
+                progressValue.setTextSize(24);
+            } else if (progress_value.length() > 7) {
+                progressValue.setTextSize(20);
+            }
+
+            weightedGradeAverageValue.setText(df.format(weighted_grade_average));
+            gradeAverageValue.setText(df.format(grade_average));
+            passedCoursesValue.setText(passed_courses+"/"+total_courses);
+            passedEctsValue.setText(df.format(passed_ects)+"/"+df.format(total_ects));
+
+
+            //Set my Adapter for the RecyclerView
+            adapter = new CoursesRecyclerAdapter(courses, this);
+            recyclerView.setAdapter(adapter);
+
+            dbHandler.close();
+        }
     }
 }

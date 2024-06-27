@@ -1,14 +1,12 @@
 package com.example.mystudies;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -17,9 +15,15 @@ import java.util.List;
 public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdapter.ViewHolder> {
 
     private static List<Note> notesList;
+    private static OnNoteClickListener onNoteClickListener;
 
-    public NotesRecyclerAdapter(List<Note> notesList){
+    public interface OnNoteClickListener {
+        void onNoteClick(int position, List<Note> list);
+    }
+
+    public NotesRecyclerAdapter(List<Note> notesList, OnNoteClickListener onNoteClickListener){
         NotesRecyclerAdapter.notesList = new ArrayList<>(notesList);
+        NotesRecyclerAdapter.onNoteClickListener = onNoteClickListener;
     }
 
     //Class that holds the items to be displayed (Views in card_layout)
@@ -34,10 +38,7 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-
-                Intent intent = new Intent(v.getContext(), NoteFormActivity.class);
-                intent.putExtra("note_id", notesList.get(position).getID());
-                v.getContext().startActivity(intent);
+                onNoteClickListener.onNoteClick(position, notesList);
             });
         }
     }
@@ -54,7 +55,9 @@ public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdap
     @Override
     public void onBindViewHolder(NotesRecyclerAdapter.ViewHolder holder, int position) {
         holder.itemNoteTitle.setText(notesList.get(position).getTitle());
-        holder.itemNoteUpdatedAt.setText(notesList.get(position).getUpdatedAt());
+
+        String updatedAt = notesList.get(position).getUpdatedAt();
+        holder.itemNoteUpdatedAt.setText(updatedAt.substring(0, updatedAt.length() - 3));
     }
 
     @Override

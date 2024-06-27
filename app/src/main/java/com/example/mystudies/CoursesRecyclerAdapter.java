@@ -21,9 +21,15 @@ import java.util.List;
 public class CoursesRecyclerAdapter extends RecyclerView.Adapter<CoursesRecyclerAdapter.ViewHolder> {
 
     private static List<Course> coursesList;
+    private static OnCourseClickListener onCourseClickListener;
 
-    public CoursesRecyclerAdapter(List<Course> coursesList){
+    public interface OnCourseClickListener {
+        void onCourseClick(int position, List<Course> list);
+    }
+
+    public CoursesRecyclerAdapter(List<Course> coursesList, OnCourseClickListener onCourseClickListener){
         CoursesRecyclerAdapter.coursesList = new ArrayList<>(coursesList);
+        CoursesRecyclerAdapter.onCourseClickListener = onCourseClickListener;
     }
 
     //Class that holds the items to be displayed (Views in card_layout)
@@ -52,10 +58,7 @@ public class CoursesRecyclerAdapter extends RecyclerView.Adapter<CoursesRecycler
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
-
-                Intent intent = new Intent(v.getContext(), CourseFormActivity.class);
-                intent.putExtra("course_id",coursesList.get(position).getID());
-                v.getContext().startActivity(intent);
+                onCourseClickListener.onCourseClick(position, coursesList);
             });
         }
     }

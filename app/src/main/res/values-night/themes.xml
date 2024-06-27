@@ -12,7 +12,11 @@
     </style>
 
     <style name="courseCard" parent="CardView">
-        <item name="cardBackgroundColor">@color/medium</item>
+        <item name="cardBackgroundColor">@color/black</item>
+    </style>
+
+    <style name="headerFrame">
+        <item name="android:background">@color/medium_shade</item>
     </style>
 
     <style name="fab_rounded">

@@ -106,9 +106,9 @@ public class CourseFormActivity extends AppCompatActivity {
         courseTypes[1].setValue("Elective");
         courseTypes[1].setLabel(course_types_labels[1]);
 
-        ArrayAdapter<SpinnerItem> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseTypes);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeInput.setAdapter(adapter);
+        ArrayAdapter<SpinnerItem> adapterCourseTypes = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseTypes);
+        adapterCourseTypes.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeInput.setAdapter(adapterCourseTypes);
 
         MyDBHandler dbHandler = new MyDBHandler(this, null, null, 1);
         List<Instructor> instructors = dbHandler.getInstructors();
@@ -125,9 +125,9 @@ public class CourseFormActivity extends AppCompatActivity {
             courseInstructors[i+1].setLabel(instructors.get(i).getLastName() + " " + instructors.get(i).getFirstName());
         }
 
-        adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseInstructors);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        instructorIdInput.setAdapter(adapter);
+        ArrayAdapter<SpinnerItem> adapterCourseInstructors = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, courseInstructors);
+        adapterCourseInstructors.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        instructorIdInput.setAdapter(adapterCourseInstructors);
 
         if (is_edit) {
             course = dbHandler.findCourse(id);
@@ -138,6 +138,19 @@ public class CourseFormActivity extends AppCompatActivity {
             titleInput.setText(course.getTitle());
             semesterInput.setSelection(course.getSemester()-1);
             ectsInput.setText(Float.toString(course.getEcts()));
+
+            int selectedInstructorPosition = 0;
+            int instructorId = course.getInstructorId();
+            if (instructorId != 0) {
+                for(int i = 0; i < instructors.size(); i++) {
+                    if (Integer.parseInt(courseInstructors[i+1].getValue()) == instructorId) {
+                        selectedInstructorPosition = i+1;
+                    }
+                }
+                instructorIdInput.setSelection(selectedInstructorPosition);
+            }
+
+            typeInput.setSelection(course.getType().equals("Core") ? 0 : 1);
             hoursInput.setText(Float.toString(course.getHours()));
             gradeInput.setText(Float.toString(course.getGrade()));
             hasGradeInput.setChecked(course.getHasGrade()==1);

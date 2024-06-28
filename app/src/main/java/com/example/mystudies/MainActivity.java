@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.preference.PreferenceManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +28,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String fragment = intent.getStringExtra("fragment");
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNavigationView);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
         if (savedInstanceState == null) {
             if (fragment == null) {
@@ -91,6 +93,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openSettings(View view) {
-        startActivity(new Intent(this, SettingsActivity.class));
+        startActivityForResult(new Intent(this, SettingsActivity.class), 1);
+    }
+
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1 && resultCode == Activity.RESULT_OK) {
+            int id = bottomNavigationView.getSelectedItemId();
+            if (id == R.id.home) {
+                replaceFragment(new HomeFragment());
+            } else if (id == R.id.tasks) {
+                replaceFragment(new TasksFragment());
+            } else if (id == R.id.instructors) {
+                replaceFragment(new InstructorsFragment());
+            } else if (id == R.id.notes) {
+                replaceFragment(new NotesFragment());
+            }
+        }
     }
 }

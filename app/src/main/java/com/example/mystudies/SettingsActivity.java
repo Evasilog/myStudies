@@ -21,8 +21,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.preference.ListPreference;
 import androidx.preference.PreferenceFragmentCompat;
 
-import java.util.Locale;
-
 public class SettingsActivity extends AppCompatActivity {
 
     @Override
@@ -32,7 +30,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         ImageButton backIcon = findViewById(R.id.settings_back_icon);
 
-        backIcon.setOnClickListener(v -> finish());
+        backIcon.setOnClickListener(v -> {
+            Intent intent1 = new Intent();
+            intent1.putExtra("fragment","courses");
+            setResult(RESULT_OK, intent1);
+            finish();
+        });
 
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -100,19 +103,8 @@ public class SettingsActivity extends AppCompatActivity {
 
             LocaleListCompat appLocale;
             // check and apply language
-            String language = sharedPreferences.getString("preference_language", "default");
+            String language = sharedPreferences.getString("preference_language", "en");
             switch (language) {
-                case "default":
-                    String locale = Locale.getDefault().getLanguage();
-                    if(!locale.equals("en") && !locale.equals("el")) {
-                        locale = "en";
-                    }
-                    appLocale = LocaleListCompat.forLanguageTags(locale);
-                    AppCompatDelegate.setApplicationLocales(appLocale);
-                    if (preferenceLanguage != null) {
-                        preferenceLanguage.setSummary(preferenceLanguage.getEntry());
-                    }
-                    break;
                 case "en":
                     appLocale = LocaleListCompat.forLanguageTags("en");
                     AppCompatDelegate.setApplicationLocales(appLocale);
@@ -135,14 +127,6 @@ public class SettingsActivity extends AppCompatActivity {
                     LocaleListCompat appLocale1;
                     if (preference.getKey().equals("preference_language")) {
                         switch (items) {
-                            case "default":
-                                String locale = Locale.getDefault().getLanguage();
-                                if(!locale.equals("en") && !locale.equals("el")) {
-                                    locale = "en";
-                                }
-                                appLocale1 = LocaleListCompat.forLanguageTags("en");
-                                AppCompatDelegate.setApplicationLocales(appLocale1);
-                                break;
                             case "en":
                                 appLocale1 = LocaleListCompat.forLanguageTags("en");
                                 AppCompatDelegate.setApplicationLocales(appLocale1);

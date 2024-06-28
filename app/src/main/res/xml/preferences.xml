@@ -11,12 +11,12 @@
         <ListPreference
             android:key="preference_language"
             android:title="@string/select_language"
-            android:defaultValue="default"
+            android:defaultValue="en"
             android:entries="@array/language_entries"
             android:entryValues="@array/language_values" />
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/display_settings">
+    <PreferenceCategory android:title="@string/app_settings">
         <EditTextPreference
             android:defaultValue="240"
             android:key="preference_ects"

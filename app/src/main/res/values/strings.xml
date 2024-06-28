@@ -40,6 +40,7 @@
     <string name="number_rd">rd</string>
     <string name="number_th">th</string>
     <string name="display_settings">Display Settings</string>
+    <string name="app_settings">App Settings</string>
     <string name="select_theme">Select Theme</string>
     <string name="info">Info</string>
     <string name="learn_about_app">Learn about app</string>
@@ -62,8 +63,8 @@
     <string name="info_message">This App was developed by Vasilogamvros Evangelos, a postgraduate student of the computer science department of the Aristotle University of Thessaloniki.</string>
 
     <string-array name="course_types_labels">
-        <item>Core pam</item>
-        <item>Elective pam</item>
+        <item>Core</item>
+        <item>Elective</item>
     </string-array>
 
     <string-array name="theme_entries">
@@ -79,13 +80,11 @@
     </string-array>
 
     <string-array name="language_entries">
-        <item>Same as system</item>
         <item>English</item>
         <item>Greek</item>
     </string-array>
 
     <string-array name="language_values">
-        <item>default</item>
         <item>en</item>
         <item>el</item>
     </string-array>

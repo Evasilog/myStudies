@@ -38,10 +38,6 @@ public class TaskFormActivity extends AppCompatActivity {
     TextView deadlineDateInput;
     ImageButton deadlineTime;
     TextView deadlineTimeInput;
-    ImageButton reminderDate;
-    TextView reminderDateInput;
-    ImageButton reminderTime;
-    TextView reminderTimeInput;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
     Switch completedInput;
     EditText detailsInput;
@@ -70,10 +66,6 @@ public class TaskFormActivity extends AppCompatActivity {
         deadlineDateInput = findViewById(R.id.task_deadline_date);
         deadlineTime = findViewById(R.id.task_deadline_time_btn);
         deadlineTimeInput = findViewById(R.id.task_deadline_time);
-        reminderDate = findViewById(R.id.task_reminder_date_btn);
-        reminderDateInput = findViewById(R.id.task_reminder_date);
-        reminderTime = findViewById(R.id.task_reminder_time_btn);
-        reminderTimeInput = findViewById(R.id.task_reminder_time);
         completedInput = findViewById(R.id.task_completed);
         detailsInput = findViewById(R.id.task_details);
 
@@ -130,42 +122,6 @@ public class TaskFormActivity extends AppCompatActivity {
             timePickerDialog.show();
         });
 
-        reminderDate.setOnClickListener(v -> {
-            int current_year = now.get(Calendar.YEAR);
-            int current_month = now.get(Calendar.MONTH);
-            int current_day = now.get(Calendar.DAY_OF_MONTH);
-
-            String dateString = (String) reminderDateInput.getText();
-            if (!dateString.equals(getResources().getString(R.string.select_date))) {
-                String[] dateParts = dateString.split("/");
-                current_day = Integer.parseInt(dateParts[0]);
-                current_month = Integer.parseInt(dateParts[1])-1;
-                current_year = Integer.parseInt(dateParts[2]);
-            }
-
-            DatePickerDialog datePickerDialog = new DatePickerDialog(this, (datePicker, year, month, day) -> {
-                reminderDateInput.setText(getFormattedDate(day,month,year));
-            }, current_year, current_month, current_day);
-            datePickerDialog.show();
-        });
-
-        reminderTime.setOnClickListener(v -> {
-            int current_hourOfDay = now.get(Calendar.HOUR_OF_DAY);
-            int current_minute = now.get(Calendar.MINUTE);
-
-            String timeString = (String) reminderTimeInput.getText();
-            if (!timeString.equals(getResources().getString(R.string.select_time))) {
-                String[] timeParts = timeString.split(":");
-                current_hourOfDay = Integer.parseInt(timeParts[0]);
-                current_minute = Integer.parseInt(timeParts[1]);
-            }
-
-            TimePickerDialog timePickerDialog = new TimePickerDialog(this, (timePicker, hourOfDay, minute) -> {
-                reminderTimeInput.setText(getFormattedTime(hourOfDay,minute));
-            },current_hourOfDay,current_minute,true);
-            timePickerDialog.show();
-        });
-
         if (is_edit) {
             task = dbHandler.findTask(id);
 
@@ -199,26 +155,6 @@ public class TaskFormActivity extends AppCompatActivity {
                 deadlineTimeInput.setText(getFormattedTime(task_hour, task_minute));
             }
 
-            taskDateTime = task.getReminder();
-            if (!taskDateTime.equals("")) {
-                dateTimeParts = taskDateTime.split(" ");
-
-                datePart = dateTimeParts[0];
-                dateParts = datePart.split("-");
-                task_year = Integer.parseInt(dateParts[0]);
-                task_month = Integer.parseInt(dateParts[1])-1;
-                task_day = Integer.parseInt(dateParts[2]);
-
-                reminderDateInput.setText(getFormattedDate(task_day, task_month, task_year));
-
-                timePart = dateTimeParts[1];
-                timeParts = timePart.split(":");
-                task_hour = Integer.parseInt(timeParts[0]);
-                task_minute = Integer.parseInt(timeParts[1]);
-
-                reminderTimeInput.setText(getFormattedTime(task_hour, task_minute));
-            }
-
             completedInput.setChecked(task.getCompleted()==1);
             detailsInput.setText(task.getDetails());
         } else {
@@ -231,10 +167,6 @@ public class TaskFormActivity extends AppCompatActivity {
             deadlineDateInput.setText(deadlineDateText);
             CharSequence deadlineTimeText = savedInstanceState.getCharSequence("savedDeadlineTimeText");
             deadlineTimeInput.setText(deadlineTimeText);
-            CharSequence reminderDateText = savedInstanceState.getCharSequence("savedReminderDateText");
-            reminderDateInput.setText(reminderDateText);
-            CharSequence reminderTimeText = savedInstanceState.getCharSequence("savedReminderTimeText");
-            reminderTimeInput.setText(reminderTimeText);
         }
     }
 
@@ -251,16 +183,11 @@ public class TaskFormActivity extends AppCompatActivity {
             deadlineTime = deadlineTime.equals(getResources().getString(R.string.select_time)) ? "12:00" : deadlineTime;
             String deadline = deadlineDate.equals(getResources().getString(R.string.select_date)) ? "" : getFormattedDateTimeDB(deadlineDate, deadlineTime);
 
-            String reminderDate = reminderDateInput.getText().toString();
-            String reminderTime = reminderTimeInput.getText().toString();
-            reminderTime = reminderTime.equals(getResources().getString(R.string.select_time)) ? "12:00" : reminderTime;
-            String reminder = reminderDate.equals(getResources().getString(R.string.select_date)) ? "" : getFormattedDateTimeDB(reminderDate, reminderTime);
-
             String details = detailsInput.getText().toString();
             int completed = completedInput.isChecked() ? 1 : 0;
             String updated_at = dateFormat.format(now.getTime());
 
-            Task form_task = new Task(title,deadline,reminder,completed,details, updated_at, updated_at);
+            Task form_task = new Task(title,deadline,completed,details, updated_at, updated_at);
 
             if (is_edit) {
                 dbHandler.updateTask(id, form_task);
@@ -306,9 +233,5 @@ public class TaskFormActivity extends AppCompatActivity {
         outState.putCharSequence("savedDeadlineDateText", deadlineDateText);
         CharSequence deadlineTimeText = deadlineTimeInput.getText();
         outState.putCharSequence("savedDeadlineTimeText", deadlineTimeText);
-        CharSequence reminderDateText = reminderDateInput.getText();
-        outState.putCharSequence("savedReminderDateText", reminderDateText);
-        CharSequence reminderTimeText = reminderTimeInput.getText();
-        outState.putCharSequence("savedReminderTimeText", reminderTimeText);
     }
 }

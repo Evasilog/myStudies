@@ -38,7 +38,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
     public static final String TASKS_COLUMN_ID = "_id";
     public static final String TASKS_COLUMN_TITLE = "title";
     public static final String TASKS_COLUMN_DEADLINE = "deadline";
-    public static final String TASKS_COLUMN_REMINDER = "reminder";
     public static final String TASKS_COLUMN_COMPLETED = "completed";
     public static final String TASKS_COLUMN_DETAILS = "details";
     public static final String TASKS_COLUMN_CREATED_AT = "created_at";
@@ -92,7 +91,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
                 TASKS_COLUMN_ID + " INTEGER PRIMARY KEY," +
                 TASKS_COLUMN_TITLE + " TEXT," +
                 TASKS_COLUMN_DEADLINE + " DATETIME," +
-                TASKS_COLUMN_REMINDER + " DATETIME," +
                 TASKS_COLUMN_COMPLETED + " INTEGER," +
                 TASKS_COLUMN_DETAILS + " TEXT," +
                 TASKS_COLUMN_CREATED_AT + " DATETIME DEFAULT CURRENT_TIMESTAMP," +
@@ -317,7 +315,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(TASKS_COLUMN_TITLE, task.getTitle());
         values.put(TASKS_COLUMN_DEADLINE, task.getDeadline());
-        values.put(TASKS_COLUMN_REMINDER, task.getReminder());
         values.put(TASKS_COLUMN_COMPLETED, task.getCompleted());
         values.put(TASKS_COLUMN_DETAILS, task.getDetails());
         SQLiteDatabase db = this.getWritableDatabase();
@@ -337,11 +334,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
             task.setID(cursor.getInt(0));
             task.setTitle(cursor.getString(1));
             task.setDeadline(cursor.getString(2));
-            task.setReminder(cursor.getString(3));
-            task.setCompleted(cursor.getInt(4));
-            task.setDetails(cursor.getString(5));
-            task.setCreatedAt(cursor.getString(6));
-            task.setUpdatedAt(cursor.getString(7));
+            task.setCompleted(cursor.getInt(3));
+            task.setDetails(cursor.getString(4));
+            task.setCreatedAt(cursor.getString(5));
+            task.setUpdatedAt(cursor.getString(6));
             cursor.close();
         } else {
             task = null;
@@ -355,7 +351,6 @@ public class MyDBHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(TASKS_COLUMN_TITLE, task.getTitle());
         values.put(TASKS_COLUMN_DEADLINE, task.getDeadline());
-        values.put(TASKS_COLUMN_REMINDER, task.getReminder());
         values.put(TASKS_COLUMN_COMPLETED, task.getCompleted());
         values.put(TASKS_COLUMN_DETAILS, task.getDetails());
         values.put(TASKS_COLUMN_UPDATED_AT, task.getUpdatedAt());
@@ -393,11 +388,10 @@ public class MyDBHandler extends SQLiteOpenHelper {
             task.setID(cursor.getInt(0));
             task.setTitle(cursor.getString(1));
             task.setDeadline(cursor.getString(2));
-            task.setReminder(cursor.getString(3));
-            task.setCompleted(cursor.getInt(4));
-            task.setDetails(cursor.getString(5));
-            task.setCreatedAt(cursor.getString(6));
-            task.setUpdatedAt(cursor.getString(7));
+            task.setCompleted(cursor.getInt(3));
+            task.setDetails(cursor.getString(4));
+            task.setCreatedAt(cursor.getString(5));
+            task.setUpdatedAt(cursor.getString(6));
             tasksList.add(task);
         }
         cursor.close();

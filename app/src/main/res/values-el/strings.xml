@@ -41,9 +41,10 @@
     <string name="number_rd">ο</string>
     <string name="number_th">ο</string>
     <string name="display_settings">Ρυθμίσεις εμφάνισης</string>
+    <string name="app_settings">Ρυθμίσεις εφαρμογής</string>
     <string name="select_theme">Επιλογή Θέματος</string>
     <string name="info">Πληροφορίες</string>
-    <string name="learn_about_app">Μάθε για το app</string>
+    <string name="learn_about_app">Μάθε για την εφαρμογή</string>
     <string name="contact">Επικοινωνία</string>
     <string name="sent_as_your_comments">Στείλε μας τα σχόλια σου</string>
     <string name="settings">Ρυθμίσεις</string>
@@ -55,12 +56,12 @@
     <string name="select_date">Επέλεξε ημερομηνία</string>
     <string name="select_time">Επέλεξε ώρα</string>
     <string name="completed">Ολοκληρώθηκε</string>
-    <string name="note">Note</string>
+    <string name="note">Σημείωση</string>
     <string name="total_ects">Συνολικά ECTS</string>
     <string name="passing_grade">Προβιβάσιμος βαθμός</string>
     <string name="total_semesters">Πλήθος Εξαμήνων</string>
     <string name="info_title">Πληροφορίες</string>
-    <string name="info_message">Αυτή η εφαρμογή αναπτύχθηκε από τον Βασιλόγαμβρο Ευάγγελο, μεταπτυχιακό φοιτητή του τμήματος πληροφορικής του Αριστοτελείου Πανεπιστημίου Θεσσαλονίκης.</string>
+    <string name="info_message">Αυτή η εφαρμογή αναπτύχθηκε από τον Βασιλόγαμβρο Ευάγγελο, μεταπτυχιακό φοιτητή του τμήματος Πληροφορικής του Αριστοτελείου Πανεπιστημίου Θεσσαλονίκης.</string>
 
     <string-array name="course_types_labels">
         <item>Υποχρεωτικό</item>
@@ -80,13 +81,11 @@
     </string-array>
 
     <string-array name="language_entries">
-        <item>Γλώσσα συστήματος</item>
         <item>Αγγλικά</item>
         <item>Ελληνικά</item>
     </string-array>
 
     <string-array name="language_values">
-        <item>default</item>
         <item>en</item>
         <item>el</item>
     </string-array>

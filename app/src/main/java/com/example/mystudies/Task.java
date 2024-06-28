@@ -4,7 +4,6 @@ public class Task {
     private int _id;
     private String _title;
     private String _deadline;
-    private String _reminder;
     private int _completed;
     private String _details;
     private String _created_at;
@@ -13,10 +12,9 @@ public class Task {
     public Task() {
     }
 
-    public Task(String title, String deadline, String reminder, int completed, String details, String created_at, String updated_at) {
+    public Task(String title, String deadline, int completed, String details, String created_at, String updated_at) {
         this._title = title;
         this._deadline = deadline;
-        this._reminder = reminder;
         this._completed = completed;
         this._details = details;
         this._created_at = created_at;
@@ -45,14 +43,6 @@ public class Task {
 
     public void setDeadline(String deadline) {
         this._deadline = deadline;
-    }
-
-    public String getReminder() {
-        return _reminder;
-    }
-
-    public void setReminder(String reminder) {
-        this._reminder = reminder;
     }
 
     public int getCompleted() {

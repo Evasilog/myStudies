@@ -181,78 +181,6 @@
                 <TableRow
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_margin="10dp"
-                    android:gravity="center_vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/reminder"
-                        android:textSize="18sp"
-                        android:labelFor="@+id/task_deadline"/>
-
-                    <TableLayout>
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_margin="10dp"
-                            android:gravity="center_vertical">
-                            <ImageButton
-                                android:id="@+id/task_reminder_date_btn"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginStart="8dp"
-                                android:background="@color/primary"
-                                android:contentDescription="@string/delete"
-                                android:src="@drawable/ic_calendar_month"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:tint="@color/white" />
-                            <TextView
-                                android:id="@+id/task_reminder_date"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="@string/select_date"
-                                android:gravity="center_vertical"
-                                android:layout_marginStart="8dp"
-                                android:textSize="18sp" />
-                        </TableRow>
-                        <TableRow
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_margin="10dp"
-                            android:gravity="center_vertical">
-                            <ImageButton
-                                android:id="@+id/task_reminder_time_btn"
-                                android:layout_width="32dp"
-                                android:layout_height="32dp"
-                                android:layout_marginStart="8dp"
-                                android:background="@color/primary"
-                                android:contentDescription="@string/delete"
-                                android:src="@drawable/ic_schedule"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintEnd_toEndOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:tint="@color/white" />
-                            <TextView
-                                android:id="@+id/task_reminder_time"
-                                android:layout_width="wrap_content"
-                                android:layout_height="match_parent"
-                                android:text="@string/select_time"
-                                android:gravity="center_vertical"
-                                android:layout_marginStart="8dp"
-                                android:textSize="18sp" />
-                        </TableRow>
-
-                    </TableLayout>
-
-
-                </TableRow>
-
-                <TableRow
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
                     android:layout_margin="10dp">
 
                     <Switch
@@ -284,7 +212,7 @@
                         android:layout_height="wrap_content"
                         android:ems="10"
                         android:layout_marginStart="8dp"
-                        android:minLines="4"
+                        android:minLines="7"
                         android:gravity="start|top"
                         android:inputType="textMultiLine"
                         android:autofillHints="@string/details" />
